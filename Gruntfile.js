@@ -7,33 +7,6 @@ module.exports = function(grunt) {
       src: 'src',
       dist: 'dist'
     },
-    jshint: {
-      options: {
-        strict: true,
-        curly: true,
-        eqeqeq: true,
-        undef: true,
-        unused: true,
-        // es3: true,
-        esnext: true,
-        forin: true,
-        noempty: true,
-        indent: 2,
-        browser: true,
-        globals: {
-          module: true,
-          jQuery: true,
-          define: true,
-          require: true,
-          console: true
-        }
-      },
-      uses_defaults: [
-        'Gruntfile.js',
-        '<%= config.src %>/js/**/*.js',
-        '!<%= config.src %>/js/lib/**'
-      ]
-    },
     clean: {
       dist: ['<%= config.dist %>']
     },
@@ -43,12 +16,6 @@ module.exports = function(grunt) {
         cwd: '<%= config.src %>/js/lib/',
         src: ['**/*.js'],
         dest: '<%= config.dist %>/js/lib/'
-      },
-      js: {
-        expand: true,
-        cwd: '<%= config.src %>/',
-        src: ['**/*.js', '!**/js/lib/**/*.*'],
-        dest: '<%= config.dist %>/'
       },
       templates: {
         expand: true,
@@ -88,19 +55,17 @@ module.exports = function(grunt) {
     },
     execute: {
       target: {
-        src: ['app.js']
+        src: ['main.js']
       }
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-execute');
 
   grunt.registerTask('default', [
-    'jshint',
     'clean',
     'copy',
     'coffee',

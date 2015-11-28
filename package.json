@@ -3,7 +3,7 @@
   "private": true,
   "description": "An example Marionette app with Spotify API authentication",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "main.js",
   "author": {
     "name": "Nate Armagost",
     "url": "https://github.com/natearmagost"
