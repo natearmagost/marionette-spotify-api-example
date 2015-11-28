@@ -1,0 +1,41 @@
+{
+  "name": "marionette-spotify-api-example",
+  "private": true,
+  "description": "An example Marionette app with Spotify API authentication",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": {
+    "name": "Nate Armagost",
+    "url": "https://github.com/natearmagost"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": ">=0.8"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "dependencies": {
+    "body-parser": "1.3.1",
+    "consolidate": "~0.10.0",
+    "cookie-parser": "1.3.1",
+    "express": "4.4.3",
+    "express-session": "1.4.0",
+    "method-override": "2.0.2",
+    "passport": "~0.2.0",
+    "passport-spotify": "~0.3.0",
+    "request": "2.x"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-execute": "^0.2.2"
+  }
+}
