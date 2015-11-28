@@ -38,10 +38,16 @@ module.exports = function(grunt) {
       dist: ['<%= config.dist %>']
     },
     copy: {
+      lib: {
+        expand: true,
+        cwd: '<%= config.src %>/js/lib/',
+        src: ['**/*.js'],
+        dest: '<%= config.dist %>/js/lib/'
+      },
       js: {
         expand: true,
         cwd: '<%= config.src %>/',
-        src: ['**/*.js'],
+        src: ['**/*.js', '!**/js/lib/**/*.*'],
         dest: '<%= config.dist %>/'
       },
       templates: {
@@ -69,6 +75,17 @@ module.exports = function(grunt) {
         dest: '<%= config.dist %>/'
       }
     },
+    coffee: {
+      compile: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.src %>/js/',
+          src: ['**/*.coffee'],
+          dest: '<%= config.dist %>/js/',
+          ext: '.js'
+        }]
+      }
+    },
     execute: {
       target: {
         src: ['app.js']
@@ -79,12 +96,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-execute');
 
   grunt.registerTask('default', [
     'jshint',
     'clean',
     'copy',
+    'coffee',
     'execute'
   ]);
 
