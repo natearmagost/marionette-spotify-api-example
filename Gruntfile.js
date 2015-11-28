@@ -46,7 +46,7 @@ module.exports = function(grunt) {
       compile: {
         files: [{
           expand: true,
-          cwd: '<%= config.src %>/js/',
+          cwd: '<%= config.src %>/coffee/',
           src: ['**/*.coffee'],
           dest: '<%= config.dist %>/js/',
           ext: '.js'
