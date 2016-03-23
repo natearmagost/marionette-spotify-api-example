@@ -10,31 +10,41 @@ define (require) ->
 
     template: _.template authenticated
 
-    regions: 
+    regions:
       pageRegion: '#page'
 
     events:
-      'click [data-event="navigate"]': 'navigate'
-      'click [data-event="logout"]': 'logOut'
+      'click [data-event="home"]': '_showAlbums'
+      'click [data-event="logout"]': '_logOut'
 
     onRender: ->
       $('body').addClass 'authenticated'
+      return
 
     onShow: ->
       @showPage(@options.module) if @options.module
+      return
 
     onDestroy: ->
       $('body').removeClass 'authenticated'
-
-    # App-specific properties below this point...
+      return
 
     showPage: (module) ->
       @getRegion('pageRegion').show module
-
-    navigate: (e) ->
-      e.preventDefault()
-      App.appRouter.navigate $(e.currentTarget).attr('href'), trigger: true
       return
 
-    logOut: ->
-      App.appRouter.navigate '/logout', trigger: true
+    _showAlbums: (e) -> # For now just use the albums page as home
+      e.preventDefault()
+      App.appRouter.navigate('/')
+      require(['views/albums/AlbumsPageLayout'], (AlbumsPageLayout) ->
+        App.container.getRegion('mainRegion').currentView.showPage(new AlbumsPageLayout())
+        return
+      )
+      return
+
+    _logOut: ->
+      App.appRouter.navigate('/')
+      require ['views/Login'], (Login) ->
+        App.container.getRegion('mainRegion').show(new Login())
+        return
+      return

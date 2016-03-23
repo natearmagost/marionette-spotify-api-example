@@ -14,20 +14,32 @@ define (require) ->
 
       login: ->
         require ['views/Login'], (Login) ->
-          App.container.getRegion('mainRegion').show new Login()
+          App.container.getRegion('mainRegion').show(new Login())
+          return
+        return
 
       albums: ->
-        require(['views/Authenticated', 'views/albums/AlbumsPageLayout'], (Authenticated, AlbumsPageLayout) ->
+        require(['views/albums/AlbumsPageLayout'], (AlbumsPageLayout) ->
           if not App.container.getRegion('mainRegion').currentView or not App.container.getRegion('mainRegion').currentView.showPage
-            App.container.getRegion('mainRegion').show(new Authenticated(module: new AlbumsPageLayout()))
+            require(['views/Authenticated'], (Authenticated) ->
+              App.container.getRegion('mainRegion').show(new Authenticated(module: new AlbumsPageLayout()))
+              return
+            )
           else
             App.container.getRegion('mainRegion').currentView.showPage(new AlbumsPageLayout())
+          return
         )
+        return
 
       album: (id) ->
-        require(['views/Authenticated', 'views/album/AlbumPageLayout'], (Authenticated, AlbumPageLayout) ->
+        require(['views/album/AlbumPageLayout'], (AlbumPageLayout) ->
           if not App.container.getRegion('mainRegion').currentView or not App.container.getRegion('mainRegion').currentView.showPage
-            App.container.getRegion('mainRegion').show(new Authenticated(module: new AlbumPageLayout(id: id)))
-          else 
-            App.container.getRegion('mainRegion').currentView.showPage(new AlbumPageLayout id: id)
+            require(['views/Authenticated'], (Authenticated) ->
+              App.container.getRegion('mainRegion').show(new Authenticated(module: new AlbumPageLayout(id: id)))
+              return
+            )
+          else
+            App.container.getRegion('mainRegion').currentView.showPage(new AlbumPageLayout(id: id))
+          return
         )
+        return

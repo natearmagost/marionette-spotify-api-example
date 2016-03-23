@@ -13,7 +13,7 @@ define (require) ->
     regions:
       mainRegion: '#main'
 
-  App.container = new Container el: 'body'
+  App.container = new Container(el: 'body')
 
   App.container.render()
 

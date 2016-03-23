@@ -14,20 +14,21 @@ define (require) ->
     template: _.template albumsPageLayout
 
     regions:
-      albumCollectionRegion: '.albums-collection-region'
+      albumsCollectionRegion: '.albums-collection-region'
 
     initialize: ->
-      @collection = new Albums
+      @collection = new Albums(
         state:
           firstPage: 0,
           currentPage: @options.page - 1,
           pageSize: 20
+      )
       return
 
     onRender: ->
       $.when(@collection.fetch()).done( =>
-        @getRegion('albumCollectionRegion').show(new AlbumsCollection collection: @collection)
-        $(@el).find('.loader').prop 'hidden', true
+        @getRegion('albumsCollectionRegion').show(new AlbumsCollection(collection: @collection))
+        $(@el).find('.loader').prop('hidden', true)
         $(@el).find('.loading').fadeIn()
         return
       ).fail( =>

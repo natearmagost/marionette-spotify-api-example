@@ -14,7 +14,7 @@ define (require) ->
     url: ->
       '/v1/browse/new-releases?country=US'
 
-    state: 
+    state:
       pageSize: 20
       firstPage: 0
       currentPage: 0
@@ -33,6 +33,7 @@ define (require) ->
 
     initialize: (models, options) ->
       @options = if options then options else {}
+      return
 
     parse: (response) ->
       return response.albums.items

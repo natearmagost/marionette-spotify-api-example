@@ -7,10 +7,11 @@ define (require) ->
     model: Backbone.Model.extend {}
 
     url: ->
-      return '/v1/albums/' + @options.albumId + '/tracks'
+      return "/v1/albums/#{@options.albumId}/tracks"
 
     initialize: (models, options) ->
       @options = if options then options else {}
+      return
 
     parse: (response) ->
       response.items

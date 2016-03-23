@@ -15,11 +15,13 @@ define (require) ->
     template: _.template albumBreadcrumb
 
     events:
-      'click [data-event="navigate"]': 'navigate'
+      'click [data-event="albums"]': '_showAlbums'
 
-    # App-specific properties below this point
-
-    navigate: (e) ->
+    _showAlbums: (e) ->
       e.preventDefault()
-      App.appRouter.navigate $(e.currentTarget).attr('href'), trigger: true
+      App.appRouter.navigate('/albums')
+      require(['views/albums/AlbumsPageLayout'], (AlbumsPageLayout) ->
+        App.container.getRegion('mainRegion').currentView.showPage(new AlbumsPageLayout())
+        return
+      )
       return

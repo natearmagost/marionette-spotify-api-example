@@ -13,10 +13,10 @@ define (require) ->
     tagName: 'a'
 
     events:
-      click: 'navigate'
+      click: '_showDetails'
 
     attributes: ->
-      href: '/albums/' + @model.get 'id'
+      href: "/albums/#{@model.get('id')}"
 
     template: _.template albumsCollectionItem
 
@@ -25,9 +25,11 @@ define (require) ->
         image: do =>
           @model.get('images')[1].url
 
-    # App-specific properties below this point...
-
-    navigate: (e) ->
+    _showDetails: (e) ->
       e.preventDefault()
-      App.appRouter.navigate $(e.currentTarget).attr('href'), trigger: true
+      App.appRouter.navigate($(e.currentTarget).attr('href'))
+      require(['views/album/AlbumPageLayout'], (AlbumPageLayout) =>
+        App.container.getRegion('mainRegion').currentView.showPage(new AlbumPageLayout(id: @model.get('id')))
+        return
+      )
       return

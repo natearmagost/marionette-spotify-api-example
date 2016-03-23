@@ -14,7 +14,7 @@ module.exports = function(grunt) {
       lib: {
         expand: true,
         cwd: '<%= config.src %>/js/lib/',
-        src: ['**/*.js'],
+        src: ['**/*.*'],
         dest: '<%= config.dist %>/js/lib/'
       },
       templates: {
@@ -38,8 +38,14 @@ module.exports = function(grunt) {
       css: {
         expand: true,
         cwd: '<%= config.src %>/',
-        src: ['**/*.css'],
+        src: ['**/css/*.*'],
         dest: '<%= config.dist %>/'
+      }
+    },
+    coffeelint: {
+      app: ['<%= config.src %>/coffee/**/*.coffee'],
+      options: {
+        configFile: 'coffeelint.json'
       }
     },
     coffee: {
@@ -64,10 +70,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-execute');
+  grunt.loadNpmTasks('grunt-coffeelint');
 
   grunt.registerTask('default', [
     'clean',
     'copy',
+    'coffeelint',
     'coffee',
     'execute'
   ]);

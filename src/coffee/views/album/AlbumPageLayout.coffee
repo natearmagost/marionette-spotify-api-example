@@ -20,16 +20,15 @@ define (require) ->
       albumItemRegion: '.album-item-region'
 
     initialize: ->
-      @model = new Album
-        id: @options.id
-      @collection = new Tracks {}, albumId: @options.id
+      @model = new Album(id: @options.id)
+      @collection = new Tracks({}, albumId: @options.id)
       return
 
     onRender: ->
       $.when(@model.fetch(), @collection.fetch()).done( =>
-        @getRegion('albumBreadcrumbRegion').show(new AlbumBreadcrumb model: @model)
-        @getRegion('albumItemRegion').show(new AlbumItem model: @model, collection: @collection)
-        $(@el).find('.loader').prop 'hidden', true
+        @getRegion('albumBreadcrumbRegion').show(new AlbumBreadcrumb(model: @model))
+        @getRegion('albumItemRegion').show(new AlbumItem(model: @model, collection: @collection))
+        $(@el).find('.loader').prop('hidden', true)
         $(@el).find('.loading').fadeIn()
         return
       ).fail( =>
